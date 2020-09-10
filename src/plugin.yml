@@ -1,0 +1,26 @@
+name: JustAnotherAPI
+author: iSatisfied
+version: 0.0.1
+main: me.satisdev.justanotherapi.JustAnotherAPI
+
+commands:
+  ban:
+    usage: /<command> <player> <time> <reason>
+    aliases: []
+    description: Bans a player
+  globalmute:
+    usage: /<command>
+    aliases: []
+    description: Mutes chat
+  mute:
+    usage: /<command> <player> <time> <reason>
+    aliases: []
+    description: Mutes a player
+  permissions:
+    usage: /<command> <add | get | remove> <player> [permission]
+    aliases: [permission, perms, perm, p]
+    description: Adds, removes, and gets a players permissions
+  setrank:
+    usage: /<command> <player> <rank>
+    aliases: []
+    description: Sets a players rank
