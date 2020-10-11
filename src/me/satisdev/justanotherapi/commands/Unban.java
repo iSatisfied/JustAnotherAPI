@@ -14,14 +14,12 @@ public class Unban implements CommandExecutor {
 
 	private JustAnotherAPI justAnotherApi;
 
-	private ChatUtil chatUtil;
 	private PermissionManager permissionManager;
 	private ServerMessages serverMessages;
 
 	public Unban(JustAnotherAPI justAnotherApi) {
 		this.justAnotherApi = justAnotherApi;
 
-		chatUtil = this.justAnotherApi.getChatUtil();
 		permissionManager = this.justAnotherApi.getPermissionManager();
 		serverMessages = this.justAnotherApi.getServerMessages();
 
@@ -42,7 +40,7 @@ public class Unban implements CommandExecutor {
 		}
 
 		if (args.length == 0) {
-			sender.sendMessage(chatUtil.color("&cYou must specify a player."));
+			sender.sendMessage(justAnotherApi.color("&cYou must specify a player."));
 			return true;
 
 		} else {

@@ -20,7 +20,6 @@ public class SetRank implements CommandExecutor, TabCompleter {
 
 	private JustAnotherAPI justAnotherApi;
 
-	private ChatUtil chatUtil;
 	private PermissionManager permissionManager;
 	private RankManager rankManager;
 	private ServerMessages serverMessages;
@@ -28,7 +27,6 @@ public class SetRank implements CommandExecutor, TabCompleter {
 	public SetRank(JustAnotherAPI justAnotherApi) {
 		this.justAnotherApi = justAnotherApi;
 
-		chatUtil = this.justAnotherApi.getChatUtil();
 		permissionManager = this.justAnotherApi.getPermissionManager();
 		rankManager = this.justAnotherApi.getRankManager();
 		serverMessages = this.justAnotherApi.getServerMessages();
@@ -54,14 +52,14 @@ public class SetRank implements CommandExecutor, TabCompleter {
 			sender.sendMessage(serverMessages.getNoPlayer());
 			return true;
 		} else if (args.length == 1) {
-			sender.sendMessage(chatUtil.color("&cYou must enter a valid rank."));
+			sender.sendMessage(justAnotherApi.color("&cYou must enter a valid rank."));
 			return true;
 
 		} else {
 			target = Bukkit.getServer().getPlayer(args[0]);
 
 			if (target == null) {
-				sender.sendMessage(chatUtil.color("&c" + args[0] + " is offline."));
+				sender.sendMessage(justAnotherApi.color("&c" + args[0] + " is offline."));
 				return true;
 			}
 
@@ -95,14 +93,14 @@ public class SetRank implements CommandExecutor, TabCompleter {
 
 					break;
 				default:
-					sender.sendMessage(chatUtil.color("&cYou must enter a valid rank."));
+					sender.sendMessage(justAnotherApi.color("&cYou must enter a valid rank."));
 					return true;
 			}
 
-			sender.sendMessage(chatUtil.color("&aSuccessfully set " + target.getName() + "'s to &r" +
+			sender.sendMessage(justAnotherApi.color("&aSuccessfully set " + target.getName() + "'s to &r" +
 					rankManager.getPlayerRank(target)));
 
-			chatUtil.sendMessage(target, "&aRank changed to &r" + rankManager.getPlayerRank(target));
+					justAnotherApi.sendMessage(target, "&aRank changed to &r" + rankManager.getPlayerRank(target));
 		}
 		return true;
 	}

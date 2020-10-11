@@ -18,14 +18,12 @@ public class Permissions implements CommandExecutor, TabCompleter {
 
 	private JustAnotherAPI justAnotherApi;
 
-	private ChatUtil chatUtil;
 	private PermissionManager permissionManager;
 	private ServerMessages serverMessages;
 
 	public Permissions(JustAnotherAPI justAnotherApi) {
 		this.justAnotherApi = justAnotherApi;
 
-		chatUtil = justAnotherApi.getChatUtil();
 		permissionManager = justAnotherApi.getPermissionManager();
 		serverMessages = justAnotherApi.getServerMessages();
 
@@ -46,60 +44,60 @@ public class Permissions implements CommandExecutor, TabCompleter {
 		}
 
 		if (args.length == 0) {
-			sender.sendMessage(chatUtil.color("&c/permission <add | remove | get> <player> [permission]"));
+			sender.sendMessage(justAnotherApi.color("&c/permission <add | remove | get> <player> [permission]"));
 
 		} else if (args.length == 1) {
-			sender.sendMessage(chatUtil.color("&cYou must specify a player."));
+			sender.sendMessage(justAnotherApi.color("&cYou must specify a player."));
 
 		} else if (args.length == 2) {
 			if (args[0].equals("get")){
 				player = Bukkit.getServer().getPlayer(args[1]);
 
 				if (player == null) {
-					sender.sendMessage(chatUtil.color("&c" + args[1] + " is offline."));
+					sender.sendMessage(justAnotherApi.color("&c" + args[1] + " is offline."));
 					return true;
 				}
 
-				sender.sendMessage(chatUtil.color("&8" + player.getName() + "&7's permissions are:\n"));
+				sender.sendMessage(justAnotherApi.color("&8" + player.getName() + "&7's permissions are:\n"));
 
 				for (String perm : permissionManager.getPerms(player))
-					sender.sendMessage(chatUtil.color("&7 - &f" + perm + "\n"));
+					sender.sendMessage(justAnotherApi.color("&7 - &f" + perm + "\n"));
 
-			} else sender.sendMessage(chatUtil.color("&cYou must enter a permission."));
+			} else sender.sendMessage(justAnotherApi.color("&cYou must enter a permission."));
 
 		} else {
 			player = Bukkit.getServer().getPlayer(args[1]);
 
 			if (player == null) {
-				sender.sendMessage(chatUtil.color("&c" + args[1] + " is offline."));
+				sender.sendMessage(justAnotherApi.color("&c" + args[1] + " is offline."));
 				return true;
 			}
 
 			switch (args[0]) {
 				case "add":
 					if (permissionManager.getPerms(player).contains(args[2])) {
-						sender.sendMessage(chatUtil.color("&c" + player.getName() + " already has that permission"));
+						sender.sendMessage(justAnotherApi.color("&c" + player.getName() + " already has that permission"));
 						break;
 					}
 
 					permissionManager.addPerm(player, args[2]);
 
-					sender.sendMessage(chatUtil.color("&aSuccessfully gave " + player.getName() + " the permission &r" + args[2]));
-					player.sendMessage(chatUtil.color("&aGiven permission &r" + args[2]));
+					sender.sendMessage(justAnotherApi.color("&aSuccessfully gave " + player.getName() + " the permission &r" + args[2]));
+					player.sendMessage(justAnotherApi.color("&aGiven permission &r" + args[2]));
 					break;
 				case "remove":
 					if (!permissionManager.getPerms(player).contains(args[2])) {
-						sender.sendMessage(chatUtil.color("&c" + player.getName() + " does not have that permission"));
+						sender.sendMessage(justAnotherApi.color("&c" + player.getName() + " does not have that permission"));
 						break;
 					}
 
 					permissionManager.removePerm(player, args[2]);
 
-					sender.sendMessage(chatUtil.color("&aSuccessfully removed &r" + args[2] + "&a from " + player.getName()));
-					player.sendMessage(chatUtil.color("&aPermission &r" + args[2] + "&a removed"));
+					sender.sendMessage(justAnotherApi.color("&aSuccessfully removed &r" + args[2] + "&a from " + player.getName()));
+					player.sendMessage(justAnotherApi.color("&aPermission &r" + args[2] + "&a removed"));
 					break;
 				default:
-					sender.sendMessage(chatUtil.color("&c/permission <add | remove | get> <player> [permission]"));
+					sender.sendMessage(justAnotherApi.color("&c/permission <add | remove | get> <player> [permission]"));
 					break;
 			}
 		}
